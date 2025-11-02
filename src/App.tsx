@@ -2,6 +2,13 @@ import Webcam from "react-webcam";
 import "./App.css";
 import { useCallback, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+} from "./components/ui/select";
+import { SelectTrigger } from "@radix-ui/react-select";
 
 function App() {
   const navigate = useNavigate();
@@ -52,37 +59,98 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col space-y-2 w-full h-screen items-center justify-center px-4">
+      <div className="flex flex-col space-y-2 w-full min-h-screen items-center justify-center px-4 bg-gradient-to-br from-pink-200 via-white to-pink-200">
         {/* Set foto & delay */}
         <div className="flex gap-4">
-          <select
-            name="picGrid"
-            id="picGrid"
-            value={totalPhotos}
-            onChange={(e) => setTotalPhotos(Number(e.currentTarget.value))}
-            className="w-20 text-center border rounded-md p-1"
+          <Select
+            value={String(totalPhotos)}
+            onValueChange={(v) => setTotalPhotos(Number(v))}
           >
-            <option value={1}>1 Foto</option>
-            <option value={2}>2 Foto</option>
-            <option value={3}>3 Foto</option>
-            <option value={4}>4 Foto</option>
-          </select>
-          <select
-            name="delay"
-            id="delay"
-            defaultValue={delay}
-            onChange={(e) => setDelay(Number(e.currentTarget.value))}
-            className="w-20 text-center border rounded-md p-1"
+            <SelectTrigger
+              className="
+          w-36 justify-center text-pink-600 font-semibold
+          border-2 border-pink-400 rounded-xl
+          bg-white hover:bg-pink-50 shadow-sm
+          focus:ring-2 focus:ring-pink-400 focus:border-pink-400
+          transition-all duration-200
+        "
+            >
+              <SelectValue placeholder="Pilih foto" />
+            </SelectTrigger>
+            <SelectContent
+              className="
+          bg-white border border-pink-200 rounded-lg shadow-lg
+          text-pink-700 font-semibold
+        "
+            >
+              <SelectItem
+                value="1"
+                className="hover:bg-pink-100 cursor-pointer"
+              >
+                1 Foto
+              </SelectItem>
+              <SelectItem
+                value="2"
+                className="hover:bg-pink-100 cursor-pointer"
+              >
+                2 Foto
+              </SelectItem>
+              <SelectItem
+                value="3"
+                className="hover:bg-pink-100 cursor-pointer"
+              >
+                3 Foto
+              </SelectItem>
+              <SelectItem
+                value="4"
+                className="hover:bg-pink-100 cursor-pointer"
+              >
+                4 Foto
+              </SelectItem>
+            </SelectContent>
+          </Select>
+          <Select
+            value={String(delay)}
+            onValueChange={(v) => setDelay(Number(v))}
           >
-            <option value={3000}>3s</option>
-            <option value={5000}>5s</option>
-          </select>
+            <SelectTrigger
+              className="
+          w-28 justify-center
+          border-2 border-pink-400 rounded-xl
+          bg-white text-pink-600 font-semibold
+          hover:bg-pink-50 shadow-sm
+          focus:ring-2 focus:ring-pink-400 focus:border-pink-400
+          transition-all duration-200
+        "
+            >
+              <SelectValue placeholder="Delay" />
+            </SelectTrigger>
+            <SelectContent
+              className="
+          bg-white border border-pink-200 rounded-lg shadow-lg
+          text-pink-700 font-semibold
+        "
+            >
+              <SelectItem
+                value="3000"
+                className="hover:bg-pink-100 cursor-pointer"
+              >
+                3 Detik
+              </SelectItem>
+              <SelectItem
+                value="5000"
+                className="hover:bg-pink-100 cursor-pointer"
+              >
+                5 Detik
+              </SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         {/* Webcam */}
         <div className="flex flex-col md:flex-row gap-10">
-          <div className="hidden border w-40 md:flex flex-col items-center space-y-2">
-            <button>Mirror</button>
+          <div className="hidden w-40 md:flex flex-col items-center space-y-2">
+            <button></button>
           </div>
           <div className="relative flex items-center justify-center">
             <Webcam
@@ -106,7 +174,7 @@ function App() {
                 key={index}
                 width={200}
                 height={200}
-                className="w-auto md:w-40 h-auto rounded-xl border-2 border-pink-400"
+                className="w-auto md:w-40 h-40 rounded-xl border-2 border-pink-400"
               />
             ))}
           </div>
@@ -116,7 +184,7 @@ function App() {
         {!noAction && photos.length > 0 ? (
           <button
             onClick={() => navigate("/result", { state: { photos } })}
-            className="p-4 w-96 text-center bg-pink-300 not-disabled:hover:bg-pink-400 rounded-full text-white text-xl font-bold cursor-pointer disabled:cursor-not-allowed"
+            className="p-4 w-96 text-center bg-pink-400 rounded-full text-white text-xl font-bold cursor-pointer disabled:cursor-not-allowed"
           >
             Berikutnya
           </button>
