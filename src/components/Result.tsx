@@ -10,6 +10,7 @@ const frameList = [
   "/frame/laut.png",
   "/frame/pencil.png",
   "/frame/sweet.png",
+  "/frame/cute.png",
 ];
 
 const gridModel = [
@@ -53,86 +54,119 @@ export default function Result() {
   };
 
   return (
-    <div className="flex flex-col space-y-2 w-full h-screen justify-center items-center bg-gradient-to-br from-pink-200 via-white to-pink-200">
-      {/* Back  */}
-      <a href="/" className="absolute top-4 left-4">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={2}
-          stroke="currentColor"
-          className="size-8 text-pink-500 cursor-pointer"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-          />
-        </svg>
-      </a>
+    <div className="flex flex-col md:flex-row  bg-gradient-to-br from-pink-200 via-white to-pink-200">
+      <div className="flex flex-col space-y-2 w-full h-screen justify-center items-center">
+        {/* Back  */}
+        <a href="/" className="absolute top-4 left-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="size-8 text-pink-500 cursor-pointer"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+            />
+          </svg>
+        </a>
 
-      {/* Canvas */}
-      <div
-        id="frame"
-        ref={frameRef}
-        className={`${
-          gridAmount == 1 && photos.length > 1 ? "h-[100%] w-40" : "h-96 w-96"
-        } relative bg-white border-2 border-white rounded-md`}
-      >
-        <img
-          src={`${frameSrc}`}
-          className="z-1 w-full h-[100%] absolute inset-0"
-        />
+        {/* Canvas */}
         <div
-          className={`grid grid-cols-${
-            photos.length == 1 ? "1" : gridAmount
-          } gap-1 w-full h-full`}
+          id="frame"
+          ref={frameRef}
+          className={`${
+            gridAmount == 1 && photos.length > 1 ? "h-[70%] w-56" : "h-96 w-96"
+          } relative bg-white border-2 border-white rounded-md`}
         >
-          {photos.map((item, index) => (
-            <div
+          <img
+            src={`${frameSrc}`}
+            className="z-1 w-full h-[100%] absolute inset-0"
+          />
+          <div
+            className={`grid grid-cols-${
+              photos.length == 1 ? "1" : gridAmount
+            } gap-1 w-full h-full px-4 pt-6 pb-10`}
+          >
+            {photos.map((item, index) => (
+              <div
+                key={index}
+                className="w-full h-full bg-white bg-no-repeat bg-center"
+                style={{
+                  backgroundImage: `url(${item})`,
+                  backgroundSize: "cover",
+                }}
+              ></div>
+            ))}
+          </div>
+        </div>
+        <button
+          onClick={downloadResult}
+          disabled={photos.length == 0}
+          className="bg-pink-500 hover:bg-pink-600 disabled:bg-pink-200 cursor-pointer text-white font-bold px-6 py-3 rounded-full"
+        >
+          Download
+        </button>
+      </div>
+
+      <div className="flex flex-col items-center justify-center space-y-14 w-full h-auto md:h-screen">
+        {/* Frame list */}
+        <div className="flex flex-wrap justify-center gap-2 items-center p-2 w-full">
+          <button
+            onClick={() => setFrameSrc(null)}
+            className="w-20 h-20 bg-white p-2 rounded-md shadow shadow-black/20 flex justify-center items-center cursor-pointer"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-10 text-slate-600"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
+              />
+            </svg>
+          </button>
+          {frameList.map((item, index) => (
+            <button
               key={index}
-              className="w-full h-full bg-white rounded-lg bg-no-repeat bg-center"
-              style={{
-                backgroundImage: `url(${item})`,
-                backgroundSize: "cover",
-              }}
-            ></div>
+              onClick={() => setFrameSrc(item)}
+              className="cursor-pointer"
+            >
+              <img
+                src={item}
+                width={100}
+                height={100}
+                className="w-20 h-20 bg-white p-2 rounded-md shadow shadow-black/20"
+              />
+            </button>
           ))}
         </div>
-      </div>
-      <button
-        onClick={downloadResult}
-        className="bg-pink-500 hover:bg-pink-600 text-white font-bold px-6 py-3 rounded-full"
-      >
-        Download
-      </button>
 
-      {/* Frame list */}
-      <div className="flex gap-2 items-center">
-        <button
-          onClick={() => setFrameSrc(null)}
-          className="border w-20 h-20 rounded-md"
-        ></button>
-        {frameList.map((item, index) => (
-          <button key={index} onClick={() => setFrameSrc(item)}>
-            <img src={item} width={100} height={100} className="w-20 h-20" />
-          </button>
-        ))}
-      </div>
-
-      {/* Grid model */}
-      <div className="flex gap-2 items-center">
-        {gridModel.map((item, index) => (
-          <button key={index} onClick={() => setGridAmount(item.grid)}>
-            <img
-              src={item.url}
-              width={100}
-              height={100}
-              className="w-20 h-20"
-            />
-          </button>
-        ))}
+        {/* Grid model */}
+        <div className="flex justify-center gap-2 items-center">
+          {gridModel.map((item, index) => (
+            <button
+              key={index}
+              onClick={() => setGridAmount(item.grid)}
+              className="bg-white rounded-md shadow shadow-black/20 cursor-pointer"
+            >
+              <img
+                src={item.url}
+                width={100}
+                height={100}
+                className="w-20 h-20"
+              />
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
