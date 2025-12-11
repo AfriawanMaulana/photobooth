@@ -141,6 +141,7 @@ export default function Page() {
           {isCamera ? (
             <Webcam
               ref={webcamRef}
+              mirrored
               screenshotFormat="image/jpeg"
               className="w-full h-full rounded-3xl object-cover"
               videoConstraints={{ aspectRatio: 4 / 3, facingMode: "user" }}
