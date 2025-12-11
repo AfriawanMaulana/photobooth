@@ -1,0 +1,292 @@
+{
+  "custom": [
+    {
+      "id": 1,
+      "name": "Nailong - Happy Blast!",
+      "description": "Frame kuning cerah terinspirasi dari karakter Nailong. Energi ceria dan ekspresi polosnya membuat foto terlihat lebih fun, playful, dan penuh keceriaan. Sangat cocok untuk foto anak-anak ataupun konten yang ingin terlihat lively.",
+      "frameUrl": "/assets/frames/frame-0001.png",
+      "banner": "/assets/frames/example/frame-0001.webp",
+      "canvasWidth": 1080,
+      "canvasHeight": 1920,
+      "maxCaptures": 6,
+      "isDuplicate": false,
+      "position": [
+        {
+          "id": 0,
+          "left": 12,
+          "top": 72,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        },
+        {
+          "id": 1,
+          "left": 140,
+          "top": 72,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        },
+        {
+          "id": 2,
+          "left": 12,
+          "top": 206,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        },
+        {
+          "id": 3,
+          "left": 140,
+          "top": 206,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        },
+        {
+          "id": 4,
+          "left": 12,
+          "top": 340,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        },
+        {
+          "id": 5,
+          "left": 140,
+          "top": 340,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Powerpuff Girls - Super Power!",
+      "description": "Frame bernuansa pink yang menampilkan Blossom, Bubbles, dan Buttercup dari The Powerpuff Girls. Dipenuhi bintang dan ekspresi ceria khas trio pahlawan kecil ini. Cocok untuk foto-foto fun, persahabatan, dan momen penuh energi.",
+      "frameUrl": "/assets/frames/frame-0002.png",
+      "banner": "/assets/frames/example/frame-0002.webp",
+      "canvasWidth": 1080,
+      "canvasHeight": 1920,
+      "maxCaptures": 6,
+      "isDuplicate": false,
+      "position": [
+        {
+          "id": 0,
+          "left": 12,
+          "top": 72,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        },
+        {
+          "id": 1,
+          "left": 140,
+          "top": 72,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        },
+        {
+          "id": 2,
+          "left": 12,
+          "top": 206,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        },
+        {
+          "id": 3,
+          "left": 140,
+          "top": 206,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        },
+        {
+          "id": 4,
+          "left": 12,
+          "top": 340,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        },
+        {
+          "id": 5,
+          "left": 140,
+          "top": 340,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Latso - Sugar Smile!",
+      "description": "Frame bernuansa pink manis terinspirasi dari Lotso pada film Toy Story. Dengan pola gingham dan pose Lotso yang hangat, frame ini memberi kesan lembut dan cute untuk foto couple, aesthetic, maupun momen manis lainnya.",
+      "frameUrl": "/assets/frames/frame-0003.png",
+      "banner": "/assets/frames/example/frame-0003.webp",
+      "canvasWidth": 1080,
+      "canvasHeight": 1920,
+      "maxCaptures": 6,
+      "isDuplicate": false,
+      "position": [
+        {
+          "id": 0,
+          "left": 12,
+          "top": 72,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        },
+        {
+          "id": 1,
+          "left": 140,
+          "top": 72,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        },
+        {
+          "id": 2,
+          "left": 12,
+          "top": 206,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        },
+        {
+          "id": 3,
+          "left": 140,
+          "top": 206,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        },
+        {
+          "id": 4,
+          "left": 12,
+          "top": 340,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        },
+        {
+          "id": 5,
+          "left": 140,
+          "top": 340,
+          "width": 117.5,
+          "height": 134,
+          "rotate": 0
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Pixel Fun Adventure",
+      "description": "Tema pixel-art playful yang cocok untuk gamer dan event pop culture.",
+      "frameUrl": "/assets/frames/frame-0004.png",
+      "banner": "/assets/frames/example/frame-0004.webp",
+      "canvasWidth": 1080,
+      "canvasHeight": 1920,
+      "maxCaptures": 6,
+      "isDuplicate": false,
+      "position": [
+        {
+          "id": 0,
+          "left": 12,
+          "top": 20,
+          "width": 117.5,
+          "height": 117.5,
+          "rotate": 0
+        },
+        {
+          "id": 1,
+          "left": 140,
+          "top": 20,
+          "width": 117.5,
+          "height": 117.5,
+          "rotate": 0
+        },
+        {
+          "id": 2,
+          "left": 12,
+          "top": 140,
+          "width": 117.5,
+          "height": 130,
+          "rotate": 0
+        },
+        {
+          "id": 3,
+          "left": 140,
+          "top": 140,
+          "width": 117.5,
+          "height": 130,
+          "rotate": 0
+        },
+        {
+          "id": 4,
+          "left": 12,
+          "top": 270,
+          "width": 117.5,
+          "height": 130,
+          "rotate": 0
+        },
+        {
+          "id": 5,
+          "left": 140,
+          "top": 270,
+          "width": 117.5,
+          "height": 130,
+          "rotate": 0
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Blue Picnic Vibes",
+      "description": "Frame biru kotak-kotak yang fun dan casual untuk suasana santai.",
+      "frameUrl": "/assets/frames/frame-0005.png",
+      "banner": "/assets/frames/example/frame-0005.webp",
+      "canvasWidth": 1080,
+      "canvasHeight": 1920,
+      "maxCaptures": 4,
+      "position": [
+        {
+          "id": 0,
+          "left": 12,
+          "top": 5,
+          "width": 117.5,
+          "height": 160,
+          "rotate": 0
+        },
+        {
+          "id": 1,
+          "left": 138,
+          "top": 5,
+          "width": 117.5,
+          "height": 160,
+          "rotate": 0
+        },
+        {
+          "id": 2,
+          "left": 12,
+          "top": 170,
+          "width": 117.5,
+          "height": 170,
+          "rotate": 0
+        },
+        {
+          "id": 3,
+          "left": 138,
+          "top": 170,
+          "width": 117.5,
+          "height": 170,
+          "rotate": 0
+        }
+      ]
+    }
+  ]
+}
