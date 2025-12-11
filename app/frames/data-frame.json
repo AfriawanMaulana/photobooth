@@ -287,6 +287,67 @@
           "rotate": 0
         }
       ]
+    },
+    {
+      "id": 6,
+      "name": "Lany - XXL",
+      "description": "Tema pixel-art playful yang cocok untuk gamer dan event pop culture.",
+      "frameUrl": "/assets/frames/frame-0006.png",
+      "banner": "/assets/frames/example/frame-0006.webp",
+      "canvasWidth": 1080,
+      "canvasHeight": 1920,
+      "maxCaptures": 6,
+      "isDuplicate": false,
+      "position": [
+        {
+          "id": 0,
+          "left": 23,
+          "top": 48,
+          "width": 108,
+          "height": 133,
+          "rotate": 0
+        },
+        {
+          "id": 1,
+          "left": 138,
+          "top": 48,
+          "width": 112,
+          "height": 130,
+          "rotate": 0
+        },
+        {
+          "id": 2,
+          "left": 23,
+          "top": 183,
+          "width": 108,
+          "height": 127,
+          "rotate": 0
+        },
+        {
+          "id": 3,
+          "left": 142,
+          "top": 183,
+          "width": 108,
+          "height": 127,
+          "rotate": 0
+        },
+        {
+          "id": 4,
+          "left": 23,
+          "top": 310,
+          "width": 108,
+          "height": 133,
+          "rotate": 0
+        },
+        {
+          "id": 5,
+          "left": 142,
+          "top": 310,
+          "width": 108,
+          "height": 133,
+          "rotate": 0
+        }
+      ]
     }
   ]
 }

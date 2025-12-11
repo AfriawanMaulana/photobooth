@@ -185,24 +185,26 @@ export default function Page() {
         )}
 
         <div className="flex flex-col items-center space-y-2">
-          <div
-            className={`grid ${
-              Number(frame?.maxCaptures) === 4
-                ? "grid-cols-2"
-                : "md:grid-cols-3"
-            } gap-1 h-auto items-center bg-background/70 rounded-2xl p-2`}
-          >
-            {photos.map((photo, index) => (
-              <Image
-                key={index}
-                src={photo}
-                alt={`Saved photo ${index + 1}`}
-                width={150}
-                height={200}
-                className="object-contain rounded-lg"
-              />
-            ))}
-          </div>
+          {photos.length > 0 && (
+            <div
+              className={`grid ${
+                Number(frame?.maxCaptures) === 4
+                  ? "grid-cols-2"
+                  : "md:grid-cols-3"
+              } gap-1 h-auto items-center bg-background/70 rounded-2xl p-2`}
+            >
+              {photos.map((photo, index) => (
+                <Image
+                  key={index}
+                  src={photo}
+                  alt={`Saved photo ${index + 1}`}
+                  width={150}
+                  height={200}
+                  className="object-contain rounded-lg"
+                />
+              ))}
+            </div>
+          )}
           {photos.length === Number(frame?.maxCaptures) && (
             <Link
               href={"/edit-photo"}

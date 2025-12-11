@@ -89,7 +89,7 @@ export default function Page() {
       <div className="flex w-full h-auto items-center justify-center p-4 bg-white rounded-3xl">
         <div
           ref={canvasRef}
-          className="canvas relative shadow shadow-border"
+          className="canvas relative shadow"
           style={{ width: 270, height: 480 }}
         >
           {/* FRAME */}
