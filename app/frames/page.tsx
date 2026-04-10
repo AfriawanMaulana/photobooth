@@ -47,7 +47,7 @@ export default function Page() {
       <h1 className="text-center text-2xl md:text-3xl mb-4 text-background font-black font-mono">
         Pilih Frame Terbaikmu
       </h1>
-      <div className="flex flex-wrap gap-2 md:gap-5 lg:gap-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-5 lg:gap-8">
         {dataFrame.custom.map((frame) => (
           <Link
             key={frame.id}

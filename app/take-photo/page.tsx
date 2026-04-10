@@ -1,5 +1,5 @@
 "use client";
-import { ArrowLeft, Camera } from "lucide-react";
+import { ArrowLeft, Camera, FlipHorizontal2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -28,6 +28,7 @@ export default function Page() {
   const [isCamera, setIsCamera] = useState(false);
   const [delay, setDelay] = useState<number>(3);
   const [isCapturing, setIsCapturing] = useState(false);
+  const [isMirrored, setIsMirrored] = useState(false);
   const [countDown, setCountDown] = useState<number | null>(null);
   const [photos, setPhotos] = useState<string[]>([]);
   const [frame, setFrame] = useState<Frame | null>(null);
@@ -120,7 +121,7 @@ export default function Page() {
                 id="delay"
                 name="delay"
                 onChange={(e) => setDelay(Number(e.currentTarget.value))}
-                className="py-2 px-6 rounded-full bg-white shadow shadow-black/10"
+                className="py-2 px-6 rounded-full bg-white shadow shadow-black/10 cursor-pointer"
               >
                 <option value={3}>3 detik</option>
                 <option value={5}>5 detik</option>
@@ -129,21 +130,30 @@ export default function Page() {
             </div>
           )}
           <button
-            className="py-2 px-6 rounded-full bg-white shadow shadow-black/10"
+            className="py-2 px-6 rounded-full bg-white shadow shadow-black/10 cursor-pointer"
             onClick={handleActivateCamera}
           >
             {isCamera ? "Stop Camera" : "Camera"}
           </button>
+          <button
+            className={`${
+              isMirrored ? "bg-slate-100" : "bg-white"
+            } py-2 px-6 rounded-full shadow shadow-black/10 cursor-pointer`}
+            onClick={() => setIsMirrored(!isMirrored)}
+          >
+            <FlipHorizontal2 />
+          </button>
         </div>
 
         {/* Camera */}
-        <div className="bg-white flex flex-col items-center justify-center w-[340px] md:w-[640px] h-[460px] rounded-3xl relative">
+        <div className="bg-white flex flex-col items-center justify-center w-[400px] md:w-[640px] h-[300px] md:h-[460px] rounded-3xl relative">
           {isCamera ? (
             <Webcam
               ref={webcamRef}
-              mirrored
+              mirrored={!isMirrored}
               screenshotFormat="image/jpeg"
               className="w-full h-full rounded-3xl object-cover"
+              imageSmoothing
               videoConstraints={{ aspectRatio: 4 / 3, facingMode: "user" }}
             />
           ) : (
@@ -191,7 +201,7 @@ export default function Page() {
               className={`grid ${
                 Number(frame?.maxCaptures) === 4
                   ? "grid-cols-2"
-                  : "md:grid-cols-3"
+                  : "grid-cols-2 md:grid-cols-3"
               } gap-1 h-auto items-center bg-background/70 rounded-2xl p-2`}
             >
               {photos.map((photo, index) => (

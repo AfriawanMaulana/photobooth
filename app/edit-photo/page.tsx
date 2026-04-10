@@ -25,6 +25,7 @@ export default function Page() {
   const [photos, setPhotos] = useState<string[]>([]);
   const [frame, setFrame] = useState<Frame | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [isMono, setIsMono] = useState(false);
   const canvasRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export default function Page() {
   }, []);
 
   const handleDownload = async () => {
-    if (!canvasRef.current) return;
+    if (!canvasRef.current || !frame) return;
 
     setIsDownloading(true);
 
@@ -60,6 +61,31 @@ export default function Page() {
         backgroundColor: null,
         logging: false,
       });
+
+      const scale = 4;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      // Grayscale effect
+      if (isMono) {
+        frame.position.forEach((pos, i) => {
+          if (!photos[i]) return;
+
+          const x = pos.left * scale;
+          const y = pos.top * scale;
+          const w = pos.width * scale;
+          const h = pos.height * scale;
+
+          const imageData = ctx.getImageData(x, y, w, h);
+          const data = imageData.data;
+          for (let j = 0; j < data.length; j += 4) {
+            const avg =
+              data[j] * 0.299 + data[j + 1] * 0.587 + data[j + 2] * 0.114;
+            data[j] = data[j + 1] = data[j + 2] = avg;
+          }
+          ctx.putImageData(imageData, x, y);
+        });
+      }
 
       // Convert ke blob dan download
       canvas.toBlob((blob) => {
@@ -86,7 +112,7 @@ export default function Page() {
     <div className="flex flex-col w-full min-h-screen items-center justify-center bg-border/20 p-10 md:p-20 gap-6">
       <h1 className="font-bold text-2xl">Preview</h1>
 
-      <div className="flex w-full h-auto items-center justify-center p-4 bg-white rounded-3xl">
+      <div className="flex flex-col gap-5 md:gap-10 w-full h-auto items-center justify-center p-4 bg-white rounded-3xl">
         <div
           ref={canvasRef}
           className="canvas relative shadow"
@@ -128,12 +154,26 @@ export default function Page() {
                     src={photos[i]}
                     alt=""
                     fill
-                    className="object-cover object-center"
+                    style={{
+                      filter: `${isMono ? "grayscale(100%)" : ""}`,
+                    }}
+                    className="object-fill object-center"
                   />
                 </div>
               )
             );
           })}
+        </div>
+        <div className="flex flex-col items-center gap-2">
+          <h2>Filters</h2>
+          <button
+            className={`${
+              isMono ? "bg-slate-100" : "bg-white"
+            } py-2 px-6 rounded-full shadow shadow-black/10 cursor-pointer`}
+            onClick={() => setIsMono(!isMono)}
+          >
+            mono
+          </button>
         </div>
       </div>
 
