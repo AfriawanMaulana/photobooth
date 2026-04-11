@@ -48,23 +48,27 @@ export default function Page() {
         Pilih Frame Terbaikmu
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-5 lg:gap-8">
-        {dataFrame.custom.map((frame) => (
-          <Link
-            key={frame.id}
-            href="/take-photo"
-            onClick={() => handleSelectFrame(frame)}
-            className="flex flex-col space-y-2 w-52 p-4 items-center justify-center shadow-md shadow-black/5 rounded-lg bg-white hover:border-2 hover:border-border hover:-translate-y-2 transition-transform ease-in-out duration-200"
-          >
-            <Image
-              src={frame.banner}
-              alt={frame.name || "Frame preview"}
-              width={150}
-              height={150}
-              className="w-full h-auto"
-            />
-            <h2 className="font-semibold text-[10px]">{frame.name}</h2>
-          </Link>
-        ))}
+        {dataFrame.custom
+          .slice()
+          .reverse()
+          .map((frame) => (
+            <Link
+              key={frame.id}
+              href="/take-photo"
+              onClick={() => handleSelectFrame(frame)}
+              className="flex flex-col space-y-2 w-52 p-4 items-center justify-center shadow-md shadow-black/5 rounded-lg bg-white hover:border-2 hover:border-border hover:-translate-y-2 transition-transform ease-in-out duration-200"
+            >
+              <div className="w-full aspect-[9/16] relative">
+                <Image
+                  src={frame.banner}
+                  alt={frame.name || "Frame preview"}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <h2 className="font-semibold text-[10px]">{frame.name}</h2>
+            </Link>
+          ))}
       </div>
     </div>
   );

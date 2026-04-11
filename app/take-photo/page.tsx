@@ -130,10 +130,17 @@ export default function Page() {
             </div>
           )}
           <button
-            className="py-2 px-6 rounded-full bg-white shadow shadow-black/10 cursor-pointer"
+            className="py-2 px-6 flex rounded-full items-center bg-white shadow shadow-black/10 cursor-pointer"
             onClick={handleActivateCamera}
           >
-            {isCamera ? "Stop Camera" : "Camera"}
+            {isCamera ? (
+              <p>Stop Camera</p>
+            ) : (
+              <p className="inline-flex gap-2 items-center">
+                <Camera />
+                Camera
+              </p>
+            )}
           </button>
           <button
             className={`${

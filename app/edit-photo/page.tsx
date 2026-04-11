@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import slugify from "slugify";
 import { useEffect, useState, useRef } from "react";
 import { Download } from "lucide-react";
 
@@ -93,7 +94,9 @@ export default function Page() {
           const url = URL.createObjectURL(blob);
           const link = document.createElement("a");
           link.href = url;
-          link.download = `photobooth-${Date.now()}.png`;
+          link.download = `framebox-${slugify(frame.name, {
+            lower: true,
+          })}-${Date.now()}.png`;
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
@@ -108,6 +111,9 @@ export default function Page() {
     }
   };
 
+  const canvasW = (frame && frame?.canvasWidth / 4) || 270;
+  const canvasH = (frame && frame?.canvasHeight / 4) || 480;
+
   return (
     <div className="flex flex-col w-full min-h-screen items-center justify-center bg-border/20 p-10 md:p-20 gap-6">
       <h1 className="font-bold text-2xl">Preview</h1>
@@ -116,7 +122,7 @@ export default function Page() {
         <div
           ref={canvasRef}
           className="canvas relative shadow"
-          style={{ width: 270, height: 480 }}
+          style={{ width: canvasW, height: canvasH }}
         >
           {/* FRAME */}
           {frame && (
