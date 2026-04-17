@@ -1,7 +1,35 @@
+import { Camera, Download, Frame, Sparkles } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function LandingPage() {
+  const steps = [
+    {
+      id: 1,
+      title: "Pilih Frame",
+      desc: "Pilih frame sesuai keinginanmu.",
+      icon: <Frame />,
+    },
+    {
+      id: 2,
+      title: "Ambil Foto",
+      desc: "Gunakan kamera untuk mengambil foto seru.",
+      icon: <Camera />,
+    },
+    {
+      id: 3,
+      title: "Edit & Filter",
+      desc: "Tambahkan filter",
+      icon: <Sparkles />,
+    },
+    {
+      id: 4,
+      title: "Download",
+      desc: "Simpan hasil fotomu langsung.",
+      icon: <Download />,
+    },
+  ];
+
   return (
     <div>
       {/* Home */}
@@ -24,33 +52,49 @@ export default function LandingPage() {
           </p>
           <Link
             href={"/frames"}
-            className="py-4 px-20 md:px-10 rounded-full bg-background shadow-[0_7px_var(--color-border)] text-xl font-semibold"
+            className="py-4 px-20 md:px-10 rounded-full bg-background hover:brightness-90 shadow-[0_7px_var(--color-border)] text-xl font-semibold"
           >
             Get Started
           </Link>
         </div>
         <div className="w-full h-1/2 md:h-screen md:w-1/2 flex justify-center relative overflow-hidden">
           <Image
-            src="/assets/example-frame1.png"
+            src={"/assets/hero-1.png"}
             alt=""
-            width={150}
-            height={150}
-            className="w-64 md:w-72 h-auto absolute top-10 md:top-20"
+            fill
+            className="object-scale-down"
           />
-          <Image
-            src="/assets/example-frame2.png"
-            alt=""
-            width={150}
-            height={150}
-            className="w-64 md:w-72 h-auto absolute top-20 right-46 md:top-40 md:right-0 -rotate-10 md:rotate-10"
-          />
-          <Image
-            src="/assets/example-frame3.png"
-            alt=""
-            width={150}
-            height={150}
-            className="w-64 md:w-72 h-auto absolute top-20 left-46 md:top-40 md:left-0 rotate-10 md:-rotate-10"
-          />
+        </div>
+      </section>
+
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          {/* Title */}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mt-2">
+              How It Works?
+            </h2>
+          </div>
+
+          {/* Steps */}
+          <div className="relative flex flex-col md:flex-row items-center justify-between gap-10">
+            {/* Line (desktop) */}
+            <div className="hidden md:block absolute top-10 left-0 w-full h-[2px] bg-gray-200 z-0" />
+
+            {steps.map((step) => (
+              <div
+                key={step.id}
+                className="relative z-10 flex flex-col items-center text-center max-w-xs"
+              >
+                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-gradient-to-r from-background to-border text-white text-2xl shadow-lg">
+                  {step.icon}
+                </div>
+                <p className="mt-4 text-border font-bold">{step.id}</p>
+                <h3 className="font-semibold text-lg mt-1">{step.title}</h3>
+                <p className="text-gray-500 text-sm mt-2">{step.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
