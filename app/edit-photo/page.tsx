@@ -163,7 +163,7 @@ export default function Page() {
                     style={{
                       filter: `${isMono ? "grayscale(100%)" : ""}`,
                     }}
-                    className="object-fill object-center"
+                    className="object-cover object-center"
                   />
                 </div>
               )

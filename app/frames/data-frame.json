@@ -565,6 +565,43 @@
           "rotate": 0
         }
       ]
+    },
+    {
+      "id": 12,
+      "name": "Otul",
+      "description": "",
+      "frameUrl": "/assets/frames/frame-otul.png",
+      "banner": "/assets/frames/frame-otul.png",
+      "canvasWidth": 665,
+      "canvasHeight": 1920,
+      "maxCaptures": 3,
+      "isDuplicate": false,
+      "position": [
+        {
+          "id": 0,
+          "left": 10,
+          "top": 10,
+          "width": 146,
+          "height": 125,
+          "rotate": 0
+        },
+        {
+          "id": 1,
+          "left": 10,
+          "top": 141,
+          "width": 146,
+          "height": 125,
+          "rotate": 0
+        },
+        {
+          "id": 2,
+          "left": 10,
+          "top": 265,
+          "width": 146,
+          "height": 125,
+          "rotate": 0
+        }
+      ]
     }
   ]
 }
