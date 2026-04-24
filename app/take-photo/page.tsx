@@ -161,6 +161,7 @@ export default function Page() {
               screenshotFormat="image/jpeg"
               className="w-full h-full rounded-3xl object-cover"
               imageSmoothing
+              screenshotQuality={1}
               videoConstraints={{ aspectRatio: 4 / 3, facingMode: "user" }}
             />
           ) : (

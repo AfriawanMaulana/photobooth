@@ -3,6 +3,8 @@ import Image from "next/image";
 import slugify from "slugify";
 import { useEffect, useState, useRef } from "react";
 import { Download } from "lucide-react";
+import JSZip from "jszip";
+import { saveAs } from "file-saver";
 
 type Frame = {
   id: number;
@@ -111,6 +113,24 @@ export default function Page() {
     }
   };
 
+  // Download All Photos
+  const downloadAllPhotos = async () => {
+    if (!photos.length) return;
+
+    const zip = new JSZip();
+
+    await Promise.all(
+      photos.map(async (photos, i) => {
+        const res = await fetch(photos);
+        const blob = await res.blob();
+        zip.file(`framebox-${i + 1}.png`, blob);
+      })
+    );
+
+    const content = await zip.generateAsync({ type: "blob" });
+    saveAs(content, "framebox-photos.zip");
+  };
+
   const canvasW = (frame && frame?.canvasWidth / 4) || 270;
   const canvasH = (frame && frame?.canvasHeight / 4) || 480;
 
@@ -156,14 +176,16 @@ export default function Page() {
                     left: x,
                   }}
                 >
-                  <Image
-                    src={photos[i]}
-                    alt=""
-                    fill
+                  <div
                     style={{
-                      filter: `${isMono ? "grayscale(100%)" : ""}`,
+                      width: "100%",
+                      height: "100%",
+                      backgroundImage: `url(${photos[i]})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      backgroundRepeat: "no-repeat",
+                      filter: isMono ? "grayscale(100%)" : "none",
                     }}
-                    className="object-cover object-center"
                   />
                 </div>
               )
@@ -184,6 +206,15 @@ export default function Page() {
       </div>
 
       {/* TOMBOL DOWNLOAD */}
+      <button
+        onClick={downloadAllPhotos}
+        disabled={isDownloading || photos.length === 0}
+        className="flex items-center gap-2 px-6 py-3 bg-black hover:bg-black/50 disabled:bg-gray-400 text-white font-semibold rounded-lg transition-colors"
+      >
+        <Download size={20} />
+        {isDownloading ? "Mengunduh..." : "Download Semua Foto"}
+      </button>
+
       <button
         onClick={handleDownload}
         disabled={isDownloading || photos.length === 0}
