@@ -52,30 +52,30 @@ const DEFAULT_FILTER: CustomFilter = {
   invert: 0,
 };
 
-const FILTER_PRESETS: Record<string, CustomFilter> = {
-  none: { ...DEFAULT_FILTER },
-  mono: { ...DEFAULT_FILTER, grayscale: 100 },
-  sepia: { ...DEFAULT_FILTER, sepia: 80 },
-  vintage: {
-    ...DEFAULT_FILTER,
-    sepia: 40,
-    contrast: 120,
-    brightness: 90,
-    saturate: 120,
-  },
-  cool: { ...DEFAULT_FILTER, hueRotate: 180, saturate: 150 },
-  warm: { ...DEFAULT_FILTER, hueRotate: -20, saturate: 130, brightness: 105 },
-  highContrast: { ...DEFAULT_FILTER, contrast: 150, brightness: 105 },
-  fade: { ...DEFAULT_FILTER, contrast: 80, brightness: 110, saturate: 70 },
-  invert: { ...DEFAULT_FILTER, invert: 100 },
-  soft: { ...DEFAULT_FILTER, blur: 1.5, brightness: 105, saturate: 110 },
-  dramatic: {
-    ...DEFAULT_FILTER,
-    contrast: 140,
-    saturate: 130,
-    brightness: 95,
-  },
-};
+// const FILTER_PRESETS: Record<string, CustomFilter> = {
+//   none: { ...DEFAULT_FILTER },
+//   mono: { ...DEFAULT_FILTER, grayscale: 100 },
+//   sepia: { ...DEFAULT_FILTER, sepia: 80 },
+//   vintage: {
+//     ...DEFAULT_FILTER,
+//     sepia: 40,
+//     contrast: 120,
+//     brightness: 90,
+//     saturate: 120,
+//   },
+//   cool: { ...DEFAULT_FILTER, hueRotate: 180, saturate: 150 },
+//   warm: { ...DEFAULT_FILTER, hueRotate: -20, saturate: 130, brightness: 105 },
+//   highContrast: { ...DEFAULT_FILTER, contrast: 150, brightness: 105 },
+//   fade: { ...DEFAULT_FILTER, contrast: 80, brightness: 110, saturate: 70 },
+//   invert: { ...DEFAULT_FILTER, invert: 100 },
+//   soft: { ...DEFAULT_FILTER, blur: 1.5, brightness: 105, saturate: 110 },
+//   dramatic: {
+//     ...DEFAULT_FILTER,
+//     contrast: 140,
+//     saturate: 130,
+//     brightness: 95,
+//   },
+// };
 
 const buildFilterString = (f: CustomFilter): string => {
   const parts: string[] = [];
@@ -175,6 +175,17 @@ const SLIDER_CONFIG: Array<{
   },
 ];
 
+const EXAMPLE_VALUE: Record<keyof CustomFilter, number> = {
+  brightness: 130,
+  contrast: 130,
+  saturate: 160,
+  grayscale: 100,
+  sepia: 80,
+  hueRotate: 90,
+  blur: 2,
+  invert: 100,
+};
+
 const OUTPUT_SCALE = 4;
 
 export default function Page() {
@@ -185,8 +196,19 @@ export default function Page() {
     useState<CustomFilter>(DEFAULT_FILTER);
 
   // State untuk memilih efek mana yang sedang aktif diedit
-  const [selectedEffectKey, setSelectedEffectKey] =
-    useState<FilterKey>("brightness");
+  const [selectedEffectKey, setSelectedEffectKey] = useState<FilterKey | null>(
+    null
+  );
+  // Cek apakah semua filter lagi di nilai default (buat nentuin tombol "None" aktif atau enggak)
+  const isAllDefault = SLIDER_CONFIG.every(
+    ({ key, defaultValue }) => customFilter[key] === defaultValue
+  );
+
+  // Pengganti tombol Reset - reset semua slider + tutup panel slider yang lagi kebuka
+  const handleSelectNone = () => {
+    setCustomFilter(DEFAULT_FILTER);
+    setSelectedEffectKey(null);
+  };
 
   const canvasRef = useRef<HTMLDivElement>(null);
 
@@ -622,8 +644,8 @@ export default function Page() {
     <div className="flex flex-col w-full min-h-screen items-center justify-center bg-border/20 p-10 md:p-20 gap-6">
       <h1 className="font-bold text-2xl">Preview</h1>
 
-      <div className="grid md:grid-cols-2 gap-5 md:gap-10 w-full h-auto justify-center p-4 bg-white rounded-3xl">
-        <div className="flex items-center justify-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 w-full h-auto justify-center p-4 bg-white rounded-3xl">
+        <div className="flex flex-col gap-2 items-center justify-center">
           <div
             ref={canvasRef}
             className="canvas relative shadow"
@@ -686,101 +708,6 @@ export default function Page() {
               );
             })}
           </div>
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <h2 className="font-bold text-lg">Filters</h2>
-
-          {/* Pilihan Efek Per-Item */}
-          <div className="flex flex-col gap-4 bg-slate-50/80 border border-slate-200 rounded-2xl p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5 text-slate-800 font-semibold text-sm">
-                <SlidersHorizontal size={16} />
-                <span>Custom Adjust</span>
-              </div>
-              <button
-                onClick={() => setCustomFilter(DEFAULT_FILTER)}
-                className="flex items-center gap-1 text-xs text-slate-500 hover:text-red-600 transition-colors"
-                title="Reset semua filter ke default"
-              >
-                <RotateCcw size={14} />
-                Reset Filter
-              </button>
-            </div>
-
-            {/* Pilihan Efek (Pill Buttons) */}
-            <div className="flex flex-wrap gap-1.5">
-              {SLIDER_CONFIG.map(({ key, label, defaultValue }) => {
-                const isActive = selectedEffectKey === key;
-                const isModified = customFilter[key] !== defaultValue;
-
-                return (
-                  <button
-                    key={key}
-                    onClick={() => setSelectedEffectKey(key)}
-                    className={`px-3 py-1 text-xs rounded-lg transition-all border ${
-                      isActive
-                        ? "bg-black text-white border-black font-medium"
-                        : isModified
-                        ? "bg-slate-200 border-slate-300 text-slate-900 font-medium"
-                        : "bg-white border-slate-200 text-slate-600 hover:bg-slate-100"
-                    }`}
-                  >
-                    {label} {isModified ? "•" : ""}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Slider Efek Terpilih */}
-            <div className="flex flex-col gap-2 pt-2 border-t border-slate-200">
-              <div className="flex items-center justify-between text-xs text-slate-700 font-medium">
-                <label htmlFor={`filter-${currentEffectConfig.key}`}>
-                  {currentEffectConfig.label}
-                </label>
-                <div className="flex items-center gap-2">
-                  <span>
-                    {customFilter[currentEffectConfig.key]}
-                    {currentEffectConfig.unit}
-                  </span>
-                  <button
-                    onClick={() =>
-                      setCustomFilter((prev) => ({
-                        ...prev,
-                        [currentEffectConfig.key]:
-                          currentEffectConfig.defaultValue,
-                      }))
-                    }
-                    className="text-[10px] text-slate-400 hover:text-slate-700 underline"
-                  >
-                    Reset Efek
-                  </button>
-                </div>
-              </div>
-
-              <input
-                id={`filter-${currentEffectConfig.key}`}
-                type="range"
-                min={currentEffectConfig.min}
-                max={currentEffectConfig.max}
-                step={currentEffectConfig.step}
-                value={customFilter[currentEffectConfig.key]}
-                onChange={(e) => {
-                  // 1. Ekstrak valuenya secara langsung sebelum setter async
-                  const val = Number(e.target.value);
-                  const key = currentEffectConfig.key;
-
-                  // 2. Masukkan nilai yang sudah aman ke state
-                  setCustomFilter((prev) => ({
-                    ...prev,
-                    [key]: val,
-                  }));
-                }}
-                className="w-full cursor-pointer accent-black h-2 bg-slate-200 rounded-lg appearance-none"
-              />
-            </div>
-          </div>
-
           {/* UNDO / REDO */}
           <div className="flex items-center gap-3">
             <button
@@ -801,6 +728,138 @@ export default function Page() {
               <Redo2 size={18} />
               Redo
             </button>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          {/* <h2 className="font-bold text-lg">Filters</h2> */}
+
+          {/* Pilihan Efek Per-Item */}
+          <div className="flex flex-col gap-4 bg-slate-50/80 border border-slate-200 rounded-2xl p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5 text-slate-800 font-semibold text-sm">
+                <SlidersHorizontal size={16} />
+                <span>Custom Adjust</span>
+              </div>
+              {/* <button
+                onClick={() => setCustomFilter(DEFAULT_FILTER)}
+                className="flex items-center gap-1 text-xs text-slate-500 hover:text-red-600 transition-colors"
+                title="Reset semua filter ke default"
+              >
+                <RotateCcw size={14} />
+                Reset Filter
+              </button> */}
+            </div>
+
+            {/* Pilihan Efek (Pill Buttons) */}
+            <div
+              className="flex gap-1.5 overflow-x-auto flex-nowrap snap-x snap-mandatory scroll-smooth pb-1 -mx-1 px-1 [&::-webkit-scrollbar]:hidden md:flex-wrap md:overflow-visible md:snap-none md:mx-0 md:px-0"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
+              <button
+                onClick={handleSelectNone}
+                className={`relative text-xs rounded-md border overflow-hidden transition-all cursor-pointer shrink-0 snap-start ${
+                  isAllDefault && !selectedEffectKey
+                    ? "border-black shadow-md shadow-black/40"
+                    : "bg-white border-slate-200 text-slate-600 hover:bg-slate-100"
+                }`}
+              >
+                <Image
+                  src={photos[0] || "/assets/mountain.jpg"}
+                  alt=""
+                  width={70}
+                  height={70}
+                  className="rounded-md"
+                />
+                <p>None</p>
+              </button>
+
+              {SLIDER_CONFIG.map(({ key, label, defaultValue }) => {
+                const isActive = selectedEffectKey === key;
+                const isModified = customFilter[key] !== defaultValue;
+
+                const previewFilter = buildFilterString({
+                  ...DEFAULT_FILTER,
+                  [key]: EXAMPLE_VALUE[key],
+                });
+
+                return (
+                  <button
+                    key={key}
+                    onClick={() => setSelectedEffectKey(key)}
+                    className={`relative text-xs rounded-md border overflow-hidden transition-all cursor-pointer shrink-0 snap-start ${
+                      isActive
+                        ? "border-black shadow-md shadow-black/40"
+                        : isModified
+                        ? "bg-slate-200 border-slate-300 text-slate-900 font-medium"
+                        : "bg-white border-slate-200 text-slate-600 hover:bg-slate-100"
+                    }`}
+                  >
+                    <Image
+                      src={photos[0] || "/assets/mountain.jpg"}
+                      alt=""
+                      width={70}
+                      height={70}
+                      style={{ filter: previewFilter }}
+                      className="rounded-md"
+                    />
+                    <p>
+                      {label} {isModified ? "•" : ""}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Slider Efek Terpilih */}
+            {selectedEffectKey && (
+              <div className="flex flex-col gap-2 pt-2 border-t border-slate-200">
+                <div className="flex items-center justify-between text-xs text-slate-700 font-medium">
+                  <label htmlFor={`filter-${currentEffectConfig.key}`}>
+                    {currentEffectConfig.label}
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <span>
+                      {customFilter[currentEffectConfig.key]}
+                      {currentEffectConfig.unit}
+                    </span>
+                    <button
+                      onClick={() =>
+                        setCustomFilter((prev) => ({
+                          ...prev,
+                          [currentEffectConfig.key]:
+                            currentEffectConfig.defaultValue,
+                        }))
+                      }
+                      className="text-[10px] text-slate-400 hover:text-slate-700 underline"
+                    >
+                      Reset Efek
+                    </button>
+                  </div>
+                </div>
+
+                <input
+                  id={`filter-${currentEffectConfig.key}`}
+                  type="range"
+                  min={currentEffectConfig.min}
+                  max={currentEffectConfig.max}
+                  step={currentEffectConfig.step}
+                  value={customFilter[currentEffectConfig.key]}
+                  onChange={(e) => {
+                    // 1. Ekstrak valuenya secara langsung sebelum setter async
+                    const val = Number(e.target.value);
+                    const key = currentEffectConfig.key;
+
+                    // 2. Masukkan nilai yang sudah aman ke state
+                    setCustomFilter((prev) => ({
+                      ...prev,
+                      [key]: val,
+                    }));
+                  }}
+                  className="w-full cursor-pointer accent-black h-2 bg-slate-200 rounded-lg appearance-none"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
