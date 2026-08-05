@@ -15,7 +15,7 @@ type Frame = {
   canvasWidth: number;
   canvasHeight: number;
   maxCaptures: number;
-  banner: string;
+  isDuplicate: boolean;
   position: Array<{
     id: number;
     x: number;

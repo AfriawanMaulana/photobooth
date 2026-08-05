@@ -13,6 +13,7 @@ type Frame = {
   canvasHeight: number;
   maxCaptures: number;
   banner: string;
+  isDuplicate?: boolean;
   position: Array<{
     id: number;
     left: number;
@@ -36,6 +37,7 @@ export default function Page() {
       canvasWidth: frame.canvasWidth,
       canvasHeight: frame.canvasHeight,
       maxCaptures: frame.maxCaptures,
+      isDuplicate: frame.isDuplicate,
       position: frame.position, // Jangan lupa simpan position juga!
     };
 

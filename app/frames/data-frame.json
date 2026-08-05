@@ -676,6 +676,141 @@
           "rotate": 0
         }
       ]
+    },
+    {
+      "id": 15,
+      "name": "Movie Ticket",
+      "description": "",
+      "frameUrl": "/assets/frames/frame-movie-ticket.png",
+      "banner": "/assets/frames/example/frame-movie-ticket.webp",
+      "canvasWidth": 1080,
+      "canvasHeight": 1625,
+      "maxCaptures": 3,
+      "isDuplicate": true,
+      "position": [
+        {
+          "id": 0,
+          "left": 12,
+          "top": 76,
+          "width": 112.5,
+          "height": 80,
+          "rotate": 0
+        },
+        {
+          "id": 1,
+          "left": 12,
+          "top": 156,
+          "width": 112.5,
+          "height": 80,
+          "rotate": 0
+        },
+        {
+          "id": 2,
+          "left": 12,
+          "top": 237,
+          "width": 112.5,
+          "height": 80,
+          "rotate": 0
+        },
+        {
+          "id": 3,
+          "left": 147,
+          "top": 89,
+          "width": 112.5,
+          "height": 80,
+          "rotate": 0
+        },
+        {
+          "id": 4,
+          "left": 147,
+          "top": 170,
+          "width": 112.5,
+          "height": 80,
+          "rotate": 0
+        },
+        {
+          "id": 5,
+          "left": 147,
+          "top": 250,
+          "width": 112.5,
+          "height": 80,
+          "rotate": 0
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "MBG",
+      "description": "",
+      "frameUrl": "/assets/frames/frame-mbg.png",
+      "banner": "/assets/frames/example/frame-mbg.webp",
+      "canvasWidth": 665,
+      "canvasHeight": 1920,
+      "maxCaptures": 3,
+      "isDuplicate": false,
+      "position": [
+        {
+          "id": 0,
+          "left": 9,
+          "top": 57,
+          "width": 148,
+          "height": 124,
+          "rotate": 10
+        },
+        {
+          "id": 1,
+          "left": 9,
+          "top": 185,
+          "width": 148,
+          "height": 124,
+          "rotate": -10
+        },
+        {
+          "id": 2,
+          "left": 9,
+          "top": 320,
+          "width": 148,
+          "height": 124,
+          "rotate": 10
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Cow Meme",
+      "description": "",
+      "frameUrl": "/assets/frames/frame-cow-meme.png",
+      "banner": "/assets/frames/example/frame-cow-meme.webp",
+      "canvasWidth": 665,
+      "canvasHeight": 1920,
+      "maxCaptures": 3,
+      "isDuplicate": false,
+      "position": [
+        {
+          "id": 0,
+          "left": 10,
+          "top": 12,
+          "width": 145,
+          "height": 120,
+          "rotate": 0
+        },
+        {
+          "id": 1,
+          "left": 10,
+          "top": 135,
+          "width": 145,
+          "height": 120,
+          "rotate": 0
+        },
+        {
+          "id": 2,
+          "left": 12,
+          "top": 258,
+          "width": 142,
+          "height": 120,
+          "rotate": 0
+        }
+      ]
     }
   ]
 }

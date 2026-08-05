@@ -2,13 +2,7 @@
 import Image from "next/image";
 import slugify from "slugify";
 import { useEffect, useMemo, useState, useRef } from "react";
-import {
-  Download,
-  Undo2,
-  Redo2,
-  RotateCcw,
-  SlidersHorizontal,
-} from "lucide-react";
+import { Download, Undo2, Redo2, SlidersHorizontal } from "lucide-react";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 
@@ -20,13 +14,14 @@ type Frame = {
   canvasWidth: number;
   canvasHeight: number;
   maxCaptures: number;
-  banner: string;
+  isDuplicate: boolean;
   position: Array<{
     id: number;
     left: number;
     top: number;
     width: number;
     height: number;
+    rotate: number;
   }>;
 };
 
@@ -506,6 +501,11 @@ export default function Page() {
     });
   };
 
+  const getSourcePhotoIndex = (slotIndex: number, frame: Frame): number => {
+    if (!frame.isDuplicate) return slotIndex;
+    return slotIndex % frame.maxCaptures;
+  };
+
   const buildComposedCanvas = async (): Promise<HTMLCanvasElement | null> => {
     if (!frame) return null;
 
@@ -516,12 +516,13 @@ export default function Page() {
     if (!ctx) return null;
 
     await Promise.all(
-      frame.position.map(async (pos, i) => {
-        if (!photos[i]) return;
+      frame.position.map(async (pos, slotIndex) => {
+        const sourceIndex = getSourcePhotoIndex(slotIndex, frame);
+        if (!photos[sourceIndex]) return;
 
         let img: HTMLImageElement;
         try {
-          img = await loadImage(photos[i]);
+          img = await loadImage(photos[sourceIndex]);
         } catch (err) {
           console.error(err);
           return;
@@ -531,9 +532,10 @@ export default function Page() {
         const boxY = pos.top * OUTPUT_SCALE;
         const boxW = pos.width * OUTPUT_SCALE;
         const boxH = pos.height * OUTPUT_SCALE;
+        const rotation = (pos.rotate || 0) * (Math.PI / 180);
 
-        const offset = offsets[i] || { x: 0, y: 0 };
-        const userScale = scales[i] || 1;
+        const offset = offsets[slotIndex] || { x: 0, y: 0 };
+        const userScale = scales[slotIndex] || 1;
 
         const naturalW = img.naturalWidth;
         const naturalH = img.naturalHeight;
@@ -554,9 +556,15 @@ export default function Page() {
         ctx.rect(boxX, boxY, boxW, boxH);
         ctx.clip();
 
+        ctx.translate(centerX, centerY);
+        ctx.rotate(rotation);
+        const relativeX = drawX - centerX;
+
+        const relativeY = drawY - centerY;
+
         ctx.filter = activeFilterString;
 
-        ctx.drawImage(img, drawX, drawY, drawW, drawH);
+        ctx.drawImage(img, relativeX, relativeY, drawW, drawH);
         ctx.restore();
       })
     );
@@ -662,19 +670,22 @@ export default function Page() {
             )}
 
             {/* PHOTOS */}
-            {frame?.position?.map((pos, i) => {
+            {frame?.position?.map((pos, slotIndex) => {
+              const photoIndex = getSourcePhotoIndex(slotIndex, frame);
+              const photoSrc = photos[photoIndex];
               const w = pos.width;
               const h = pos.height;
               const x = pos.left;
               const y = pos.top;
+              const rotate = pos.rotate;
 
-              const offset = offsets[i] || { x: 0, y: 0 };
-              const scale = scales[i] || 1;
+              const offset = offsets[slotIndex] || { x: 0, y: 0 };
+              const scale = scales[slotIndex] || 1;
 
               return (
-                photos[i] && (
+                photoSrc && (
                   <div
-                    key={i}
+                    key={slotIndex}
                     className="absolute overflow-hidden z-0 cursor-move touch-none select-none"
                     style={{
                       width: w,
@@ -682,22 +693,22 @@ export default function Page() {
                       top: y,
                       left: x,
                     }}
-                    onMouseDown={(e) => handleDragStart(e, i)}
-                    onTouchStart={(e) => handleDragStart(e, i)}
-                    onDoubleClick={() => resetTransform(i)}
-                    onWheel={(e) => handleWheelZoom(e, i)}
+                    onMouseDown={(e) => handleDragStart(e, slotIndex)}
+                    onTouchStart={(e) => handleDragStart(e, slotIndex)}
+                    onDoubleClick={() => resetTransform(slotIndex)}
+                    onWheel={(e) => handleWheelZoom(e, slotIndex)}
                     title="Geser untuk posisi, scroll/pinch untuk zoom, klik dua kali untuk reset"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={photos[i]}
+                      src={photoSrc}
                       alt=""
                       draggable={false}
                       style={{
                         width: "100%",
                         height: "100%",
                         objectFit: "cover",
-                        transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
+                        transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale}) rotate(${rotate}deg)`,
                         transformOrigin: "center",
                         filter: activeFilterString,
                         pointerEvents: "none",
