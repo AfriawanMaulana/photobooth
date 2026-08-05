@@ -788,26 +788,26 @@
       "position": [
         {
           "id": 0,
-          "left": 10,
-          "top": 12,
-          "width": 145,
-          "height": 120,
+          "left": 14,
+          "top": 130,
+          "width": 140,
+          "height": 115,
           "rotate": 0
         },
         {
           "id": 1,
-          "left": 10,
-          "top": 135,
-          "width": 145,
-          "height": 120,
+          "left": 14,
+          "top": 245,
+          "width": 140,
+          "height": 115,
           "rotate": 0
         },
         {
           "id": 2,
-          "left": 12,
-          "top": 258,
-          "width": 142,
-          "height": 120,
+          "left": 14,
+          "top": 360,
+          "width": 140,
+          "height": 115,
           "rotate": 0
         }
       ]
