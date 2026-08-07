@@ -811,6 +811,43 @@
           "rotate": 0
         }
       ]
+    },
+    {
+      "id": 18,
+      "name": "Cute Rabbit",
+      "description": "",
+      "frameUrl": "/assets/frames/frame-cute-rabbit.png",
+      "banner": "/assets/frames/example/frame-cute-rabbit.webp",
+      "canvasWidth": 665,
+      "canvasHeight": 1920,
+      "maxCaptures": 3,
+      "isDuplicate": false,
+      "position": [
+        {
+          "id": 0,
+          "left": 10,
+          "top": 12,
+          "width": 145,
+          "height": 120,
+          "rotate": 0
+        },
+        {
+          "id": 1,
+          "left": 10,
+          "top": 135,
+          "width": 145,
+          "height": 120,
+          "rotate": 0
+        },
+        {
+          "id": 2,
+          "left": 12,
+          "top": 258,
+          "width": 142,
+          "height": 120,
+          "rotate": 0
+        }
+      ]
     }
   ]
 }
